@@ -8,5 +8,3 @@ https://community.atlassian.com/t5/Answers-Developer-Questions/troubles-logging-
 https://community.atlassian.com/t5/Jira-questions/How-do-I-log-work-for-a-user-via-the-Jira-Cloud-REST-API/qaq-p/625025
 https://community.atlassian.com/t5/Answers-Developer-Questions/How-to-log-work-then-resolve-issue-using-rest-api/qaq-p/535051
 https://developer.atlassian.com/cloud/jira/platform/rest/v3/#api-rest-api-3-issue-issueIdOrKey-worklog-worklogId-properties-propertyKey-put
-
-Dotahnout zapis do Excelu - v samostatne vetvi
