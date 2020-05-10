@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29905.134
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PxWorkLog.Wpf", "PxWorkLog.Wpf\PxWorkLog.Wpf.csproj", "{BE464B39-76C1-4FB6-9DE6-4E9A6FBF248D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PxWorkLog.Core", "PxWorkLog.Core\PxWorkLog.Core.csproj", "{BAEEB35F-1BBF-4A5D-8484-742BD79F79A3}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BE464B39-76C1-4FB6-9DE6-4E9A6FBF248D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE464B39-76C1-4FB6-9DE6-4E9A6FBF248D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE464B39-76C1-4FB6-9DE6-4E9A6FBF248D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE464B39-76C1-4FB6-9DE6-4E9A6FBF248D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BAEEB35F-1BBF-4A5D-8484-742BD79F79A3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BAEEB35F-1BBF-4A5D-8484-742BD79F79A3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BAEEB35F-1BBF-4A5D-8484-742BD79F79A3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BAEEB35F-1BBF-4A5D-8484-742BD79F79A3}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F7110925-7FC8-4525-9776-4A7DA5C02F71}
+	EndGlobalSection
+EndGlobal
