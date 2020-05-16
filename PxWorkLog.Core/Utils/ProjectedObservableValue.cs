@@ -3,13 +3,13 @@ using System.ComponentModel;
 
 namespace PxWorkLog.Core.Utils
 {
-    public class ProjectedObservableValue<TValue> : INotifyPropertyChanged
+    public class ProjectedObservableValue<T> : IReadOnlyObservableValue<T>
     {
-        private readonly Func<TValue> projector;
+        private readonly Func<T> projector;
 
-        private TValue value;
+        private T value;
 
-        public TValue Value
+        public T Value
         {
             get => value;
             private set
@@ -21,10 +21,17 @@ namespace PxWorkLog.Core.Utils
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public ProjectedObservableValue(Func<TValue> projector)
+        public ProjectedObservableValue(Func<T> projector)
         {
             this.projector = projector;
             value = this.projector();
+        }
+
+        public static ProjectedObservableValue<T> FromObservableValue<TSource>(IReadOnlyObservableValue<TSource> source, Func<TSource, T> projector)
+        {
+            var result = new ProjectedObservableValue<T>(() => projector(source.Value));
+            source.PropertyChanged += result.Refresh;
+            return result;
         }
 
         public void Refresh(object sender, EventArgs e)

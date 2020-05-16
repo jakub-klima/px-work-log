@@ -8,18 +8,19 @@ namespace PxWorkLog.Core
     public class IssueCollection : ObservableCollection<Issue>
     {
         public ProjectedObservableValue<TimeSpan> TotalActiveTime { get; }
+        public event EventHandler LoggedQuartersChanged;
 
         internal IssueCollection()
         {
-            TotalActiveTime = new ProjectedObservableValue<TimeSpan>(() => this
-                .Select(issue => issue.TotalLoggedTime)
-                .Aggregate(TimeSpan.Zero, (x, y) => x + y));
-            CollectionChanged += TotalActiveTime.Refresh;
             var aggregator = new CollectionEventAggregator();
             aggregator.Initialize(this,
                 issue => issue.LoggedQuarters.CollectionChanged += aggregator.RaiseItemChanged,
                 issue => issue.LoggedQuarters.CollectionChanged -= aggregator.RaiseItemChanged);
-            aggregator.ItemChanged += TotalActiveTime.Refresh;
+            aggregator.ItemChanged += (s, e) => LoggedQuartersChanged?.Invoke(this, EventArgs.Empty);
+            CollectionChanged += (s, e) => LoggedQuartersChanged?.Invoke(this, EventArgs.Empty);
+
+            TotalActiveTime = new ProjectedObservableValue<TimeSpan>(() => this.Aggregate(TimeSpan.Zero, (acc, issue) => acc + issue.TotalLoggedTime.Value));
+            LoggedQuartersChanged += TotalActiveTime.Refresh;
 
             Add(new Issue("Coordination"));
             Add(new Issue("Ceremonies"));

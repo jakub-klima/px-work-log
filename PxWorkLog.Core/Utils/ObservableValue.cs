@@ -2,7 +2,7 @@
 
 namespace PxWorkLog.Core.Utils
 {
-    public class ObservableValue<T> : INotifyPropertyChanged
+    public class ObservableValue<T> : IReadOnlyObservableValue<T>
     {
         private T value;
 

@@ -12,11 +12,11 @@ namespace PxWorkLog.Wpf
         internal Issue Issue { get; }
 
         public string Name { get; set; }
-        public ProjectedObservableValue<Brush> Background { get; }
-        public ProjectedObservableValue<string> StartStopButtonText { get; }
+        public IReadOnlyObservableValue<Brush> Background { get; }
+        public IReadOnlyObservableValue<string> StartStopButtonText { get; }
         public Brush Color { get; }
         public ObservableValue<bool?> IsColorChecked { get; } = new ObservableValue<bool?>(false);
-        public ProjectedObservableValue<string> TimeText { get; }
+        public IReadOnlyObservableValue<string> TimeText { get; }
 
         public ICommand StartStopButtonCommand { get; }
         public ICommand RemoveButtonCommand { get; }
@@ -28,13 +28,10 @@ namespace PxWorkLog.Wpf
         {
             Issue = issue;
             Name = Issue.Name;
-            TimeText = new ProjectedObservableValue<string>(() => Issue.TotalLoggedTime.ToString("h\\:mm"));
-            Issue.LoggedQuarters.CollectionChanged += TimeText.Refresh;
+            TimeText = ProjectedObservableValue<string>.FromObservableValue(issue.TotalLoggedTime, time => time.ToString("h\\:mm"));
             Color = issueColors.GetColor(Issue);
-            Background = new ProjectedObservableValue<Brush>(() => workLog.Logger.RunningIssue.Value == Issue ? Brushes.LightGreen : Brushes.White);
-            workLog.Logger.RunningIssue.PropertyChanged += Background.Refresh;
-            StartStopButtonText = new ProjectedObservableValue<string>(() => workLog.Logger.RunningIssue.Value == Issue ? "Stop" : "Start");
-            workLog.Logger.RunningIssue.PropertyChanged += StartStopButtonText.Refresh;
+            Background = ProjectedObservableValue<Brush>.FromObservableValue(workLog.Logger.RunningIssue, runningIssue => runningIssue == Issue ? Brushes.LightGreen : Brushes.White);
+            StartStopButtonText = ProjectedObservableValue<string>.FromObservableValue(workLog.Logger.RunningIssue, runningIssue => runningIssue == Issue ? "Stop" : "Start");
             StartStopButtonCommand = new DelegateCommand(() => workLog.Logger.StartStop(Issue));
             RemoveButtonCommand = new DelegateCommand(() =>
             {

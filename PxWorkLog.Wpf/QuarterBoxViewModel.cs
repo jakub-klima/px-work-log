@@ -20,12 +20,7 @@ namespace PxWorkLog.Wpf
             Margin = new Thickness(1, 1, quarter.Quarter == 3 ? 1 : 0, 1);
 
             Background = new ProjectedObservableValue<Brush>(() => issueColors.GetColor(issues.FindLoggedIn(quarter)));
-            issues.CollectionChanged += Background.Refresh;
-            var eventAggregator = new CollectionEventAggregator();
-            eventAggregator.Initialize(issues,
-                issue => issue.LoggedQuarters.CollectionChanged += eventAggregator.RaiseItemChanged,
-                issue => issue.LoggedQuarters.CollectionChanged -= eventAggregator.RaiseItemChanged);
-            eventAggregator.ItemChanged += Background.Refresh;
+            issues.LoggedQuartersChanged += Background.Refresh;
 
             LogCommand = new DelegateCommand(() =>
             {

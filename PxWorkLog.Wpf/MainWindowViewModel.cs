@@ -18,7 +18,7 @@ namespace PxWorkLog.Wpf
         public IReadOnlyCollection<HourLabelViewModel> HourLabels { get; }
         public ProjectedObservableCollection<IssueRowViewModel> IssueRows { get; set; }
 
-        public ProjectedObservableValue<string> TotalTimeText { get; }
+        public IReadOnlyObservableValue<string> TotalTimeText { get; }
         public ICommand AddIssueCommand { get; }
         public ObservableValue<string> NewIssueName { get; } = new ObservableValue<string>("");
 
@@ -26,8 +26,7 @@ namespace PxWorkLog.Wpf
         {
             this.model = model;
 
-            TotalTimeText = new ProjectedObservableValue<string>(() => $"Total {model.Issues.TotalActiveTime.Value:h\\:mm}");
-            model.Issues.TotalActiveTime.PropertyChanged += TotalTimeText.Refresh;
+            TotalTimeText = ProjectedObservableValue<string>.FromObservableValue(model.Issues.TotalActiveTime, time => $"Total {time:h\\:mm}");
 
             HourLabels = Enumerable
                 .Range(7, 12 + 1)
